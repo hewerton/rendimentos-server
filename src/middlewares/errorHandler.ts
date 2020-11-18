@@ -7,7 +7,7 @@ const errorHandler = (
   request: Request,
   response: Response,
   _next: NextFunction
-): any => {
+): Response => {
   if (err instanceof AppError) {
     return response.status(err.statusCode).json({
       status: 'error',
@@ -17,7 +17,7 @@ const errorHandler = (
 
   return response.status(500).json({
     status: 'error',
-    message: 'Internal server error.',
+    message: err.message,
   });
 };
 

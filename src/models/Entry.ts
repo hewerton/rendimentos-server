@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 import User from './User';
 import Wallet from './Wallet';
@@ -23,13 +31,22 @@ class Entry {
   @Column()
   date: Date;
 
+  @Column()
+  walletId: string | null;
+
   @ManyToOne(() => Wallet, wallet => wallet.entries)
-  wallet: Wallet;
+  wallet: Promise<Wallet>;
+
+  @Column()
+  userId: string;
 
   @ManyToOne(() => User)
-  user: User;
+  user: Promise<User>;
 
+  @CreateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
   updatedAt: Date;
 }
 

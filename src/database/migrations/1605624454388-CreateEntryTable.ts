@@ -16,6 +16,7 @@ export class CreateEntryTable1605624454388 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'ticker',
@@ -50,10 +51,12 @@ export class CreateEntryTable1605624454388 implements MigrationInterface {
           {
             name: 'createdAt',
             type: 'timestamp',
+            default: 'now()',
           },
           {
             name: 'updatedAt',
             type: 'timestamp',
+            default: 'now()',
           },
         ],
       })
