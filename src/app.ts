@@ -1,7 +1,14 @@
-import express from 'express';
-import helmet from 'helmet';
-import cors from 'cors';
+/* eslint-disable simple-import-sort/sort */
 
+// database connection
+import './database';
+
+import cors from 'cors';
+import express from 'express';
+import 'express-async-errors';
+import helmet from 'helmet';
+
+import errorHandler from './middlewares/errorHandler';
 import routes from './routes';
 
 const app = express();
@@ -15,5 +22,6 @@ app.use(cors());
 
 // routes
 app.use(routes);
+app.use(errorHandler);
 
 export default app;
