@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { getRepository } from 'typeorm';
 
+import ensuredAuthenticated from '../middlewares/ensureAuthenticated';
 import Entry from '../models/Entry';
 import CreateEntryService from '../services/CreateEntryService';
 
 const entriesRouter = Router();
+
+entriesRouter.use(ensuredAuthenticated);
 
 entriesRouter.get('/', async (request, response) => {
   const entryRepository = getRepository(Entry);
