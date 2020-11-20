@@ -1,5 +1,6 @@
 import { getRepository } from 'typeorm';
 
+import AppError from '../errors/AppError';
 import Entry from '../models/Entry';
 
 interface Request {
@@ -21,6 +22,10 @@ class CreateEntryService {
     userId,
     walletId,
   }: Request): Promise<Entry> {
+    if (!userId) {
+      throw new AppError(401, 'User id is missing');
+    }
+
     const entryRepository = getRepository(Entry);
     const entry = entryRepository.create({
       ticker,

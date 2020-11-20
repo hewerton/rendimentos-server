@@ -11,8 +11,13 @@ entriesRouter.use(ensuredAuthenticated);
 
 entriesRouter.get('/', async (request, response) => {
   const entryRepository = getRepository(Entry);
-  const entries = await entryRepository.find();
-  console.log(entries[0].user);
+  const { id: userId } = request.user;
+  const entries = await entryRepository.find({
+    where: {
+      userId,
+    },
+  });
+
   return response.json(entries);
 });
 
@@ -23,7 +28,6 @@ entriesRouter.post('/', async (request, response) => {
     value,
     taxes,
     date,
-    user_id: userId,
     wallet_id: walletId,
   } = request.body;
 
@@ -35,7 +39,7 @@ entriesRouter.post('/', async (request, response) => {
     value,
     taxes,
     date,
-    userId,
+    userId: request.user.id,
     walletId: null || walletId,
   });
 

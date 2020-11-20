@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { getRepository } from 'typeorm';
 
 import authConfig from '../config/authConfig';
 import AppError from '../errors/AppError';
@@ -26,7 +25,6 @@ const ensuredAuthenticated = (
   try {
     const decoded = verify(token, authConfig.secret);
     const { sub } = decoded as TokenPayload;
-
     request.user = {
       id: sub,
     };
