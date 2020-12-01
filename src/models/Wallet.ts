@@ -19,11 +19,14 @@ class Wallet {
   @Column()
   title: string;
 
+  @Column()
+  userId: string;
+
   @ManyToOne(() => User)
-  user: User;
+  user: Promise<User>;
 
   @OneToMany(() => Entry, entry => entry.wallet)
-  entries: Entry[];
+  entries: Promise<Entry[]>;
 
   @CreateDateColumn()
   createdAt: Date;

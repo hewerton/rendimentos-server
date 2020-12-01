@@ -29,10 +29,12 @@ export class CreateWalletTable1605624334128 implements MigrationInterface {
           {
             name: 'createdAt',
             type: 'timestamp',
+            default: 'now()',
           },
           {
             name: 'updatedAt',
             type: 'timestamp',
+            default: 'now()',
           },
         ],
       })
@@ -52,7 +54,7 @@ export class CreateWalletTable1605624334128 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('wallets', 'UserForeignKey');
+    await queryRunner.dropForeignKey('wallets', 'UserForeignkey');
 
     await queryRunner.dropTable('wallets');
   }
